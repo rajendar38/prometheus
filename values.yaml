@@ -132,19 +132,23 @@ alertmanager:
   ##
   config:
     global:
-      resolve_timeout: 5m
+      resolve_timeout: 30s
     route:
       group_by: ['job']
       group_wait: 30s
-      group_interval: 5m
-      repeat_interval: 12h
-      receiver: 'null'
+      group_interval: 30s
+   #   repeat_interval: 12h
+      receiver: 'executor'
       routes:
       - match:
-          alertname: Watchdog
-        receiver: 'null'
+          alertname: example-alert
+        receiver: 'executor'
     receivers:
-    - name: 'null'
+    - name: 'executor' 
+      webhook_configs:
+      - url: http://172.16.17.100:31000
+
+
 
   ## Pass the Alertmanager configuration directives through Helm's templating
   ## engine. If the Alertmanager configuration contains Alertmanager templates,
