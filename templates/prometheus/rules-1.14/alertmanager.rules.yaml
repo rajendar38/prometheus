@@ -58,4 +58,15 @@ spec:
       for: 5m
       labels:
         severity: critical
+
+    - alert: example-alert
+      annotations:
+        description: Memory on node currently at % 
+          is under pressure
+        summary: Memory usage is under pressure, system may become unstable.
+      expr: |
+        100 - ((node_memory_MemAvailable_bytes{job="node-exporter"} * 100) / node_memory_MemTotal_bytes{job="node-exporter"}) > 70
+      for: 2m
+      labels:
+        severity: warning
 {{- end }}
