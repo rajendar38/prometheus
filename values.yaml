@@ -132,21 +132,22 @@ alertmanager:
   ##
   config:
     global:
-      resolve_timeout: 30s
+      resolve_timeout: 2ms
     route:
-      group_by: ['job']
-      group_wait: 30s
-      group_interval: 30s
-   #   repeat_interval: 12h
+      group_wait: 1m
+      group_interval: 15s
+      repeat_interval: 2m
       receiver: 'executor'
       routes:
-      - match:
-          alertname: example-alert
-        receiver: 'executor'
+      - receiver: 'executor'
+        continue: true
+        match_re:
+          alertname: "(example-alert)"
     receivers:
     - name: 'executor' 
       webhook_configs:
       - url: http://172.16.17.100:31000
+
 
 
 

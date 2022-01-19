@@ -65,7 +65,7 @@ spec:
           is under pressure
         summary: Memory usage is under pressure, system may become unstable.
       expr: |
-        100 - ((node_memory_MemAvailable_bytes{job="node-exporter"} * 100) / node_memory_MemTotal_bytes{job="node-exporter"}) > 70
+        100 - ((node_memory_MemAvailable_bytes{job="node-exporter"} * 100) / node_memory_MemTotal_bytes{job="node-exporter"}) > 50
       for: 2m
       labels:
         severity: warning
